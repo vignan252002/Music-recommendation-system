@@ -1,0 +1,60 @@
+
+{% load static %}
+{% include 'customer_header.html' %}
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <p data-animation="fadeInUp" data-delay="300ms">Play Song</p>
+                </div>
+                <!-- Big Text -->
+                <h2 class="big-text">Colorlib</h2>
+            </div>
+
+            <!-- Single Hero Slide -->
+
+
+        </div>
+        <!-- bg gradients -->
+        <div class="bg-gradients"></div>
+
+        <!-- Slide Down -->
+        <div class="slide-down" id="scrollDown">
+            <h6>Slide Down</h6>
+            <div class="line"></div>
+        </div>
+    </section>
+
+
+
+<div class="playing-song-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="playing-song-content text-center">
+                    <img src="{{ song.album.image.url }}" alt="{{ song.title }}" class="img-fluid mb-4" style="max-width: 300px;">
+                    <h2>{{ song.title }}</h2>
+                    <p>{{ song.singer }} / {{ song.director }}</p>
+                    <p>{{ song.category }}</p>
+
+                    <!-- Audio Player -->
+                   <center> <audio controls autoplay>
+                        <source src="{{ song.file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio></center>
+
+                    <!-- Back Button -->
+                    <a href="{% url 'customer_view_song' song.album.id %}" class="btn btn-primary mt-4">Back to Song List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+

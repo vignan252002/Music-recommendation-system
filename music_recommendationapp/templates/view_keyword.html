@@ -1,0 +1,75 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-1.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Personalize Your AI</p>
+                <!-- Reduced header size for consistency -->
+                <h4 data-animation="fadeInUp" data-delay="500ms" style="color:white; font-size: 28px;">Saved Keywords</h4>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### Keyword Area Start ##### -->
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 style="color: #fff;">Your Preferences</h2>
+                <p style="color: #a8a8a8;">These keywords help our Machine Learning engine recommend the perfect tracks for you.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            {% if cat %}
+                {% for x in cat %}
+                    <!-- col-lg-4 ensures 3 cards per row on desktops -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+
+                        <!-- Custom Card Styling (Added Flexbox and 100% height) -->
+                        <div class="single-keyword-card d-flex flex-column text-center" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 40px 20px 20px 20px; transition: 0.3s; position: relative; height: 100%;">
+
+                            <!-- ID Tag -->
+                            <div style="position: absolute; top: 15px; left: 15px; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: bold;">
+                                #{{ x.id }}
+                            </div>
+
+                            <!-- Keyword Display -->
+                            <h3 style="color: #00ff00; margin-bottom: 25px; text-transform: capitalize; letter-spacing: 1px; word-break: break-word;">
+                                "{{ x.keyword }}"
+                            </h3>
+
+                            <!-- Delete Button (mt-auto anchors it to the bottom) -->
+                            <a href="{% url 'delete_keyword' id=x.id %}" class="btn w-100 mt-auto" style="background-color: transparent; color: #e74c3c; border: 1px solid #e74c3c; border-radius: 5px; font-size: 14px; transition: 0.3s;" onmouseover="this.style.backgroundColor='#e74c3c'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#e74c3c';" onclick="return confirm('Remove this keyword from your recommendations?')">
+                                Remove Keyword
+                            </a>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center mt-5">
+                    <h4 style="color: white;">No Keywords Found.</h4>
+                    <p style="color: #7f8c8d;">Add some keywords to start getting personalized song recommendations!</p>
+                    <a href="{% url 'add_keyword' %}" class="btn musica-btn mt-3" style="background-color: #27ae60;">+ Add a Keyword</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+<!-- ##### Keyword Area End ##### -->
+
+{% include 'footer.html' %}

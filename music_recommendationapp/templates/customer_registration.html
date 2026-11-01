@@ -1,0 +1,118 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Registration</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+
+<!-- ##### Registration Form Section ##### -->
+<section class="contact-area mt-30 section-padding-100-0">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-lg-6">
+                <div class="contact-content mb-100">
+                    <div class="contact-form-area">
+
+                        <!-- Display error/success message -->
+                        {% if msg %}
+                        <div style="margin-bottom: 15px;">
+                            <div style="color: red; font-weight: bold; background-color: #ffecec; padding: 10px; border: 1px solid #f5c6cb; border-radius: 5px;">
+                                {{ msg }}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Registration Form -->
+                        <form method="POST" id="contactForm" action="{% url 'customer_registration' %}" name="contactForm" class="contactForm">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="fullname">Full Name</label>
+                                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="email">Email Address</label>
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email"
+                                               pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                                               title="Please enter a valid email address (e.g., user@example.com)" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="mobile">Mobile</label>
+                                        <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="Mobile"
+                                               pattern="[6-9][0-9]{9}"
+                                               title="Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="address">Address</label>
+                                        <input type="text" class="form-control" name="address" id="address" placeholder="Address" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="city">City</label>
+                                        <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="pincode">Pincode</label>
+                                        <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode"
+                                               pattern="[1-9][0-9]{5}"
+                                               title="Please enter a valid 6-digit Indian PIN code" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="password">Password</label>
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="submit" value="Register" class="btn btn-primary">
+                                        <div class="submitting mt-2">
+                                            If You Have Account <a href="{% url 'customer_login' %}" style="color: green;">Login</a> Here
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% include 'footer.html' %}

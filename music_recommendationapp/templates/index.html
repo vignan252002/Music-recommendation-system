@@ -1,0 +1,67 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-1.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <h2 data-animation="fadeInUp" data-delay="100ms">Music <span></span></h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### About Us Area Start ##### -->
+<div class="about-us-area section-padding-100-0 bg-img bg-overlay" style="background-image: url({% static 'img/bg-img/bg-4.jpg' %});" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h2>Music Recommendation System</h2>
+                    <h6>Powered by Machine Learning</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- About Thumbnail -->
+            <div class="col-12 col-lg-6">
+                <div class="about-thumbnail mb-100">
+                    <img src="{% static 'img/bg-img/bg-5.jpg' %}" alt="">
+                </div>
+            </div>
+
+            <!-- About Content -->
+            <div class="col-12 col-lg-6">
+                <div class="about-content mb-100">
+                    <h4>Welcome to the Music Recommendation System</h4>
+                    <p>This is a personalized platform that uses Machine Learning algorithms to suggest songs based on your listening habits, preferences, and behavior. Whether you enjoy classical, rock, pop, or any other genre, the system intelligently learns your tastes and curates ideal playlists for you.</p>
+
+                    <p>It utilizes advanced techniques such as <strong>collaborative filtering</strong>, <strong>content-based filtering</strong>, and <strong>deep learning models</strong> to offer highly accurate and real-time music suggestions. The more you listen, the better the recommendations become.</p>
+
+                    <p>Experience a smart, adaptive music system that grows with your mood and preferences.</p>
+
+                    <img src="{% static 'img/core-img/signature.png' %}" alt="signature">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### About Us Area End ##### -->
+
+{% include 'footer.html' %}

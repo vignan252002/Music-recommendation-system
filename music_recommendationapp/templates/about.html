@@ -1,0 +1,67 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay2" style="background-image: url({% static 'img/bg-img/breadcumb.jpg' %});">
+    <div class="bradcumbContent">
+        <h2>About Us</h2>
+    </div>
+</div>
+
+<!-- bg gradients -->
+<div class="bg-gradients"></div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### About Us Area Start ##### -->
+<div class="about-us-area section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <!-- About Thumbnail -->
+            <div class="col-12 col-lg-6">
+                <div class="about-thumbnail mb-100">
+                    <img src="{% static 'img/bg-img/bg-7.jpg' %}" alt="Music Recommendation System">
+                </div>
+            </div>
+
+            <!-- About Content -->
+            <div class="col-12 col-lg-6">
+                <div class="about--content mb-100">
+                    <h4>Hello, <br>Welcome to the Music Recommendation System</h4>
+                    <p>Our platform leverages Machine Learning to deliver intelligent and personalized music recommendations tailored to your unique taste. By analyzing your listening patterns and preferences, we ensure you always have the perfect soundtrack—whether you're working, relaxing, or exploring new genres.</p>
+                    <p>Forget the hassle of searching endlessly. Our recommendation engine does the work for you, bringing curated playlists, trending tracks, and hidden gems right to your fingertips. Experience a smarter, more intuitive way to discover music.</p>
+
+                    <!-- Key Notes -->
+                    <ul class="key-notes">
+                        <li>
+                            <div class="check">
+                                <img src="{% static 'img/core-img/check.png' %}" alt="">
+                            </div>
+                            AI-Driven Personalization
+                        </li>
+                        <li>
+                            <div class="check">
+                                <img src="{% static 'img/core-img/check.png' %}" alt="">
+                            </div>
+                            Seamless Audio Experience
+                        </li>
+                        <li>
+                            <div class="check">
+                                <img src="{% static 'img/core-img/check.png' %}" alt="">
+                            </div>
+                            Discover New Artists Effortlessly
+                        </li>
+                        <li>
+                            <div class="check">
+                                <img src="{% static 'img/core-img/check.png' %}" alt="">
+                            </div>
+                            Curated Playlists & Recommendations
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### About Us Area End ##### -->
+
+{% include 'footer.html' %}

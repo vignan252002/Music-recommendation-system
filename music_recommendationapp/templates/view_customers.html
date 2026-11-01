@@ -1,0 +1,115 @@
+{% load static %}
+{% include 'admin_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Admin Dashboard</p>
+                <!-- Reduced header size for consistency across admin pages -->
+                <h4 data-animation="fadeInUp" data-delay="500ms" style="color:white; font-size: 28px;">Manage Customers</h4>
+            </div>
+        </div>
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### Customers Area Start ##### -->
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container">
+
+        <!-- Django Success/Error Messages -->
+        {% if messages %}
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-md-8">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center shadow-sm" role="alert" style="border-radius: 10px;">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 style="color: #fff;">Registered Users</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            {% if con %}
+                {% for x in con %}
+                    <!-- col-lg-4 ensures 3 cards per row on desktops -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+
+                        <!-- Custom Card Styling -->
+                        <div class="single-customer-card d-flex flex-column" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 25px 20px; transition: 0.3s; position: relative; height: 100%;">
+
+                            <!-- Dynamic Status Badges -->
+                            {% if x.status == 'pending' %}
+                                <div style="position: absolute; top: 15px; right: 15px; background: #f39c12; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 11px; text-transform: uppercase;">Pending</div>
+                            {% elif x.status == 'active' or x.status == 'approved' %}
+                                <div style="position: absolute; top: 15px; right: 15px; background: #27ae60; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 11px; text-transform: uppercase;">Active</div>
+                            {% elif x.status == 'deactivated' %}
+                                <div style="position: absolute; top: 15px; right: 15px; background: #7f8c8d; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 11px; text-transform: uppercase;">Deactivated</div>
+                            {% else %}
+                                <div style="position: absolute; top: 15px; right: 15px; background: #34495e; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 11px; text-transform: uppercase;">{{ x.status }}</div>
+                            {% endif %}
+
+                            <!-- User Details -->
+                            <h4 style="color: #fff; margin-bottom: 5px; font-size: 20px; padding-right: 80px;" class="text-truncate" title="{{ x.fullname }}">{{ x.fullname }}</h4>
+                            <p style="color: #27ae60; font-size: 13px; font-weight: bold; margin-bottom: 15px;">User ID: #{{ x.id }}</p>
+
+                            <!-- Info Box (Adjusted font size to 13px for a cleaner look) -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; color: #a8a8a8; font-size: 13px; text-align: left; flex-grow: 1; margin-bottom: 20px;">
+                                <div class="mb-2">
+                                    <strong style="color: #fff;">Email:</strong><br>
+                                    <a href="mailto:{{ x.email }}" style="color: #a8a8a8; word-break: break-all;">{{ x.email }}</a>
+                                </div>
+                                <div class="mb-2"><strong style="color: #fff;">Mobile:</strong> {{ x.mobile }}</div>
+                                <div><strong style="color: #fff;">City:</strong> {{ x.city }}</div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex" style="gap: 10px;">
+                                {% if x.status != 'active' and x.status != 'approved' %}
+                                    <a href="{% url 'admin_update_customer_status' id=x.id status='active' %}" class="btn w-100" style="background-color: #27ae60; color: white; border-radius: 5px; font-size: 14px; padding: 8px 0;" onclick="return confirm('Approve this customer?')">Activate</a>
+                                {% endif %}
+
+                                {% if x.status != 'deactivated' %}
+                                    <a href="{% url 'admin_update_customer_status' id=x.id status='deactivated' %}" class="btn w-100" style="background-color: #e74c3c; color: white; border-radius: 5px; font-size: 14px; padding: 8px 0;" onclick="return confirm('Deactivate this account? They will not be able to log in.')">Deactivate</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center mt-5">
+                    <h4 style="color: white;">No Customers Found.</h4>
+                    <p style="color: #7f8c8d;">There are no registered users in the database yet.</p>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+<!-- ##### Customers Area End ##### -->
+
+{% include 'footer.html' %}

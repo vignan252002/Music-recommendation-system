@@ -1,0 +1,44 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+
+
+
+<section class="hero-area">
+    <div class="single-hero-slide d-flex align-items-center justify-content-center">
+        <!-- Background image -->
+        <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-4.jpg' %});"></div>
+
+        <div class="hero-slides-content text-center">
+            <p>Now Playing: {{ song.title }}</p>
+        </div>
+    </div>
+</section>
+
+<div class="playing-song-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="playing-song-content text-center">
+                    <img src="{{ song.album.image.url }}" alt="{{ song.title }}" class="img-fluid mb-4" style="max-width: 300px;">
+                    <h2>{{ song.title }}</h2>
+                    <p>{{ song.singer }} / {{ song.director }}</p>
+                    <p>{{ song.category }}</p>
+
+                    <!-- Audio Player -->
+                   <center> <audio controls autoplay preload="auto">
+                        <source src="{{ song.file.url }}" type="audio/mpeg">
+<!--                        Your browser does not support the audio element.-->
+                    </audio></center>
+
+                    <!-- Back Button -->
+                    <a href="{% url 'customer_playlist' %}" class="btn btn-primary mt-4">Back to Song List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+

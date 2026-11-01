@@ -1,0 +1,61 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- Hero Section -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Music Recommendations</p>
+            </div>
+            <h2 class="big-text">Explore Music</h2>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+
+<!-- Recommendations Section -->
+<section class="contact-area mt-30 section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-content mb-100">
+                    <div class="contact-form-area">
+                        {% if query %}
+                            <h4 class="mb-4">Recommendations based on: <em>{{ query }}</em></h4>
+                        {% else %}
+                            <h4 class="mb-4">Your Personalized Music Recommendations</h4>
+                        {% endif %}
+
+                        {% if results %}
+                            <div class="row">
+                                {% for track in results %}
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="card h-100 shadow">
+                                        <img src="{{ track.artwork_url }}" class="card-img-top" alt="cover" style="height: 200px; object-fit: cover;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ track.track_name }}</h5>
+                                            <p class="card-text"><strong>Artist:</strong> {{ track.artist_name }}</p>
+                                            <p class="card-text"><strong>Album:</strong> {{ track.album_name }}</p>
+                                            <a href="{{ track.track_url }}" target="_blank" class="btn btn-primary btn-sm">Listen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">No results found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'footer.html' %}

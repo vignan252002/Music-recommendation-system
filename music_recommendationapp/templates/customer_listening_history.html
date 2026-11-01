@@ -1,0 +1,98 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Listening History</p>
+            </div>
+        </div>
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### History Content Area Start ##### -->
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="upcoming-shows-content">
+                    
+                    {% if history %}
+                        {% for item in history %}
+                            <!-- Single History Row -->
+                            <div class="single-upcoming-shows d-flex align-items-center flex-wrap">
+                                
+                                <!-- Shows the Day and Month -->
+                                <div class="shows-date">
+                                    <h2>{{ item.listened_at|date:"d" }} <span>{{ item.listened_at|date:"M" }}</span></h2>
+                                </div>
+                                
+                                <!-- Song Details -->
+                                <div class="shows-desc d-flex align-items-center">
+                                    <div class="shows-name">
+                                        <h6>{{ item.song_title }}</h6>
+                                        <p>
+                                            {% if item.song_type == 'premium' %}
+                                                <span style="color: #d35400;">Premium Song</span>
+                                            {% else %}
+                                                <span style="color: #27ae60;">Free Song</span>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Time listned -->
+                                <div class="shows-time">
+                                    <p>{{ item.listened_at|date:"Y" }}</p>
+                                </div>
+                                
+                                <!-- Exact Timestamp -->
+                                <div class="shows-location">
+                                    <p>{{ item.listened_at|date:"h:i A" }}</p>
+                                </div>
+
+                                <!-- Play Button -->
+                                <div class="buy-tickets">
+                                    {% if item.song_type == 'premium' %}
+                                        <!-- Sends to Premium Player -->
+                                        <a href="{% url 'customer_view_song_play' id=item.song_id %}" class="btn musica-btn">Play Again</a>
+                                    {% else %}
+                                        <!-- Sends to Free Player -->
+                                        <a href="{% url 'play_song' id=item.song_id %}" class="btn musica-btn">Play Again</a>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <!-- No history found message -->
+                        <div class="single-upcoming-shows d-flex align-items-center justify-content-center">
+                            <center>
+                                <h4>You haven't listened to any songs yet.</h4>
+                                <a href="{% url 'customer_view_album' %}" class="btn musica-btn mt-3">Go Play Music</a>
+                            </center>
+                        </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### History Content Area End ##### -->
+
+{% include 'footer.html' %}

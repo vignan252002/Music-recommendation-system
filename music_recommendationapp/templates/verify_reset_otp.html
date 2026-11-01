@@ -1,0 +1,51 @@
+{% load static %}
+{% include 'header.html' %}
+
+<section class="hero-area" style="height: 300px;">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center" style="height: 300px;">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <h2 data-animation="fadeInUp" data-delay="300ms" class="mt-5" style="color: white; font-size: 36px;">Verify Password Reset</h2>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+</section>
+
+<div class="about-us-area section-padding-100-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+                <div class="about--content mb-50 text-center" style="background: #f8f9fa; padding: 40px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h4>Two-Factor Authentication</h4>
+                    <p class="mb-4">We sent a 6-digit security code to <strong style="color: #000;">{{ email }}</strong>. Please enter it below to reset your password.</p>
+
+                    {% if messages %}
+                        <div class="messages mb-4 text-left">
+                            {% for message in messages %}
+                                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <form method="POST" action="{% url 'verify_reset_otp' %}">
+                        {% csrf_token %}
+                        <div class="form-group mb-4">
+                            <input type="text" class="form-control text-center" id="otp" name="otp" placeholder="&middot; &middot; &middot; &middot; &middot; &middot;" required maxlength="6" pattern="\d{6}" style="font-size: 30px; letter-spacing: 15px; height: 60px; font-weight: bold; color: #333;">
+                        </div>
+                        <button type="submit" class="btn w-100" style="background-color: #000; color: #fff; padding: 15px; font-size: 18px; font-weight: 600; border-radius: 0;">VERIFY OTP</button>
+                    </form>
+                    
+                    <div class="mt-4">
+                        <p style="font-size: 14px;">Didn't receive the email? <a href="{% url 'forgot_password' %}" style="color: #007bff; text-decoration: underline;">Go back and try again</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

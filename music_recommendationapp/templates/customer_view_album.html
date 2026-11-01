@@ -1,0 +1,96 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">View Album</p>
+            </div>
+        </div>
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+
+<!-- ##### Search Area Start ##### -->
+<div class="search-your-shows-area section-padding-100 bg-img" style="background-image: url({% static 'img/bg-img/bg-6.jpg' %});">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="search-your-shows-content">
+                    <h2>Search Your Album</h2>
+                    <div class="search-form">
+                        <form action="{% url 'search' %}" method="POST" class="form-inline justify-content-center">
+                            {% csrf_token %}
+                            <div class="form-group m-2">
+                                <input type="text" class="form-control" name="title" placeholder="Search Title">
+                            </div>
+                            <button type="submit" class="btn musica-btn m-2">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ##### Albums Grid Area Start ##### -->
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container">
+
+        <!-- Grid Row -->
+        <div class="row">
+            {% if album %}
+                {% for x in album %}
+                    <!-- col-lg-4 ensures 3 cards per row on desktops -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+
+                        <!-- Custom Card Styling -->
+                        <div class="single-album-card" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; margin-bottom: 30px; text-align: center; transition: 0.3s;">
+
+                            <!-- Album Image -->
+                            <div class="album-img" style="width: 100%; height: 250px; overflow: hidden;">
+                                <img src="{{x.image.url}}" alt="{{x.title}}" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+
+                            <!-- Album Details -->
+                            <div class="album-info" style="padding: 25px 20px;">
+                                <h4 style="color: #fff; margin-bottom: 5px;">{{x.title}}</h4>
+                                <p style="color: #a8a8a8; margin-bottom: 15px;">{{x.production}}</p>
+
+                                <div class="album-meta d-flex justify-content-center align-items-center mb-4" style="gap: 15px; color: #00ff00; font-size: 14px;">
+                                    <span><strong>{{x.tracks}}</strong> Tracks</span>
+                                    <span>|</span>
+                                    <span>{{x.language}}</span>
+                                    <span>|</span>
+                                    <span>{{x.year}}</span>
+                                </div>
+
+                                <a href="{% url 'customer_view_song' id=x.id %}" class="btn musica-btn w-100">View Songs</a>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center mt-5">
+                    <h4 style="color: white;">No albums found</h4>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% include 'footer.html' %}

@@ -1,0 +1,172 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Made For You</p>
+                <!-- Reduced header size here -->
+                <h4 data-animation="fadeInUp" data-delay="500ms" style="color:white; font-size: 28px;">Recommended Songs</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container">
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: HISTORY BASED RECOMMENDATIONS   -->
+        <!-- ========================================== -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h3 style="color: #fff; text-decoration: underline;">Because You Listened</h3>
+                {% if has_history %}
+                    <p style="color: #00ff00;">Based on: {{ categories|join:", " }} | {{ singers|join:", " }}</p>
+                {% else %}
+                    <p style="color: #7f8c8d;">Listen to a few songs to get personalized recommendations here.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- History Premium -->
+        {% if history_premium_songs %}
+        <div class="row">
+            <div class="col-12">
+                <h4 style="color: #d35400;" class="mb-4">Premium Discoveries</h4>
+            </div>
+            {% for song in history_premium_songs %}
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="single-song-card d-flex flex-column" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; position: relative; text-align: center; height: 100%;">
+                        <!-- Pro Badge -->
+                        <div style="position: absolute; top: 15px; right: 15px; background: #d35400; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 12px; z-index: 10;">PRO</div>
+
+                        <div class="song-img" style="width: 100%; height: 250px; overflow: hidden; flex-shrink: 0;">
+                            <img src="{{ song.album.image.url }}" alt="Album Art" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="song-info d-flex flex-column flex-grow-1" style="padding: 25px 20px;">
+                            <h4 style="color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ song.title }}">{{ song.title }}</h4>
+                            <p style="color: #a8a8a8; margin-bottom: 20px;">{{ song.singer }} | {{ song.category }}</p>
+                            <a href="{% url 'customer_view_song_play' id=song.id %}" class="btn musica-btn w-100 mt-auto">Play</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- History Free -->
+        {% if history_free_songs %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <h4 style="color: #27ae60;" class="mb-4">Free Discoveries</h4>
+            </div>
+            {% for song in history_free_songs %}
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="single-song-card d-flex flex-column" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; position: relative; text-align: center; height: 100%;">
+                        <!-- Free Badge -->
+                        <div style="position: absolute; top: 15px; right: 15px; background: #27ae60; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 12px; z-index: 10;">FREE</div>
+
+                        <div class="song-img" style="width: 100%; height: 250px; overflow: hidden; flex-shrink: 0;">
+                            <img src="{{ song.album.image.url }}" alt="Album Art" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="song-info d-flex flex-column flex-grow-1" style="padding: 25px 20px;">
+                            <h4 style="color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ song.title }}">{{ song.title }}</h4>
+                            <p style="color: #a8a8a8; margin-bottom: 20px;">{{ song.singer }} | {{ song.category }}</p>
+                            <a href="{% url 'play_song' id=song.id %}" class="btn musica-btn w-100 mt-auto">Play</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <hr style="border-top: 1px solid #555; margin: 50px 0;">
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: KEYWORD BASED RECOMMENDATIONS   -->
+        <!-- ========================================== -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h3 style="color: #fff; text-decoration: underline;">From Your Keywords</h3>
+                <h5 style="color: #fff; margin-top: 15px;">Your interests:
+                    <span style="color: #00ff00;">
+                        {% if keywords %}
+                            {{ keywords|join:", " }}
+                        {% else %}
+                            No keywords added yet.
+                        {% endif %}
+                    </span>
+                </h5>
+                <a href="{% url 'add_keyword' %}" class="btn musica-btn mt-2">Update Keywords</a>
+            </div>
+        </div>
+
+        <!-- Keyword Premium -->
+        {% if keyword_premium_songs %}
+        <div class="row">
+            <div class="col-12">
+                <h4 style="color: #d35400;" class="mb-4">Premium Matches</h4>
+            </div>
+            {% for song in keyword_premium_songs %}
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="single-song-card d-flex flex-column" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; position: relative; text-align: center; height: 100%;">
+                        <!-- Pro Badge -->
+                        <div style="position: absolute; top: 15px; right: 15px; background: #d35400; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 12px; z-index: 10;">PRO</div>
+
+                        <div class="song-img" style="width: 100%; height: 250px; overflow: hidden; flex-shrink: 0;">
+                            <img src="{{ song.album.image.url }}" alt="Album Art" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="song-info d-flex flex-column flex-grow-1" style="padding: 25px 20px;">
+                            <h4 style="color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ song.title }}">{{ song.title }}</h4>
+                            <p style="color: #a8a8a8; margin-bottom: 20px;">{{ song.singer }} | {{ song.category }}</p>
+                            <a href="{% url 'customer_view_song_play' id=song.id %}" class="btn musica-btn w-100 mt-auto">Play</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Keyword Free -->
+        {% if keyword_free_songs %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <h4 style="color: #27ae60;" class="mb-4">Free Matches</h4>
+            </div>
+            {% for song in keyword_free_songs %}
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="single-song-card d-flex flex-column" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; position: relative; text-align: center; height: 100%;">
+                        <!-- Free Badge -->
+                        <div style="position: absolute; top: 15px; right: 15px; background: #27ae60; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 12px; z-index: 10;">FREE</div>
+
+                        <div class="song-img" style="width: 100%; height: 250px; overflow: hidden; flex-shrink: 0;">
+                            <img src="{{ song.album.image.url }}" alt="Album Art" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="song-info d-flex flex-column flex-grow-1" style="padding: 25px 20px;">
+                            <h4 style="color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ song.title }}">{{ song.title }}</h4>
+                            <p style="color: #a8a8a8; margin-bottom: 20px;">{{ song.singer }} | {{ song.category }}</p>
+                            <a href="{% url 'play_song' id=song.id %}" class="btn musica-btn w-100 mt-auto">Play</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if not keyword_premium_songs and not keyword_free_songs and keywords %}
+        <div class="row">
+            <div class="col-12 text-center mt-5">
+                <h4 style="color: white;">We couldn't find any songs matching your keywords.</h4>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% include 'footer.html' %}

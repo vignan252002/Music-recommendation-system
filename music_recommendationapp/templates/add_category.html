@@ -1,0 +1,73 @@
+{% load static %}
+{% include 'admin_header.html' %}
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <p data-animation="fadeInUp" data-delay="300ms">Add Category</p>
+                </div>
+                <!-- Big Text -->
+                <h2 class="big-text">Colorlib</h2>
+            </div>
+
+            <!-- Single Hero Slide -->
+
+
+        </div>
+        <!-- bg gradients -->
+        <div class="bg-gradients"></div>
+
+        <!-- Slide Down -->
+        <div class="slide-down" id="scrollDown">
+            <h6>Slide Down</h6>
+            <div class="line"></div>
+        </div>
+    </section>
+<section class="contact-area mt-30 section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="contact-content mb-100">
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area">
+                        <!-- Display the success or error messages -->
+                        {% if msg %}
+                            <h6 style="{% if 'Success' in msg %}color:green{% else %}color:red{% endif %}">{{ msg }}</h6>
+                        {% endif %}
+                        <!-- Display form errors (if any) -->
+                        {% if form_errors %}
+                            <ul style="color:red">
+                                {% for field, errors in form_errors.items %}
+                                    <li>{{ field }}: {{ errors|join:", " }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <form method="POST" class="contactForm">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label">Category</label>
+                                        <input type="text" class="form-control" name="category" placeholder="Enter Category">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="submit" value="Add Category" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'footer.html' %}

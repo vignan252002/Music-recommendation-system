@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer View Plans | Music Recommendation</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff; /* PAGE BACKGROUND WHITE */
+            color: #333;
+        }
+
+        /* Title Styling */
+        .section-title {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 32px;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        /* Card Styling */
+        .card.plan-card {
+            background: #1a1a2e; /* Deep dark blue/purple */
+            color: #fff;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%; /* Ensures equal height in row */
+        }
+
+        .card.plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 65, 108, 0.3); /* Subtle red glow */
+            border-color: rgba(255, 65, 108, 0.5);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .creator-text {
+            font-size: 13px;
+            color: #8a8a8a;
+            margin-bottom: 20px;
+        }
+
+        /* Pricing Area */
+        .pricing-area {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .plan-duration {
+            font-size: 16px;
+            font-weight: 600;
+            color: #a8b2d1;
+            margin-bottom: 5px;
+        }
+
+        .highlight-cost {
+            font-size: 36px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0;
+        }
+
+        .highlight-discount {
+            display: inline-block;
+            background: rgba(231, 76, 60, 0.2);
+            color: #ff6b6b;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Button Styling */
+        .buy-btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            width: 80%;
+            border: none;
+        }
+
+        .buy-btn:hover {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            transform: scale(1.05);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .card.plan-card {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area" style="height: 300px;">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center" style="height: 300px;">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <h2 data-animation="fadeInUp" data-delay="300ms" class="mt-5" style="color: white; font-size: 36px;">Premium Plans</h2>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### Pricing Area Start ##### -->
+<div class="container mt-5 mb-5 pt-4 pb-4">
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-12 text-center">
+            <h3 class="section-title">Choose Your Plan</h3>
+        </div>
+    </div>
+
+    <!-- Display Messages (Errors/Success) if any exist from the buy_plan view -->
+    {% if messages %}
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-8 text-center">
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        {% for x in plans %}
+        <!-- Using d-flex to ensure columns stretch equally if row has mixed content sizes -->
+        <div class="col-lg-4 col-md-6 col-sm-10 mb-4 d-flex align-items-stretch">
+            <div class="card plan-card text-center w-100 d-flex flex-column">
+
+                <div class="card-body d-flex flex-column">
+                    <!-- Title & Meta -->
+                    <h5 class="card-title">{{ x.title }}</h5>
+                    <p class="creator-text">Admin: {{ x.email }}</p>
+
+                    <!-- Pricing Block -->
+                    <div class="pricing-area my-auto">
+                        <p class="plan-duration">{{ x.months }} Months Access</p>
+                        <h2 class="highlight-cost">₹{{ x.cost }}</h2>
+
+                        {% if x.discount > 0 %}
+                            <span class="highlight-discount">Save ₹{{ x.discount }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Footer Action -->
+                <div class="card-footer bg-transparent border-0 pt-0 pb-4">
+                    <a href="{% url 'buy_plan' id=x.id %}" class="buy-btn">Choose Plan</a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- ##### Pricing Area End ##### -->
+
+{% include 'footer.html' %}
+</body>
+</html>

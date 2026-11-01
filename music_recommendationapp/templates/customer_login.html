@@ -1,0 +1,97 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Customer Login</p>
+            </div>
+            <!-- Big Text -->
+            <h2 class="big-text">Music Recommendation</h2>
+        </div>
+
+    </div>
+
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+
+<!-- ##### Contact/Login Area ##### -->
+<section class="contact-area mt-30 section-padding-100-0">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-lg-6">
+                <div class="contact-content mb-100">
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area">
+
+                        <!-- Display Messages -->
+                        {% if messages %}
+                        <div style="margin-bottom: 20px;">
+                            {% for message in messages %}
+                                <div style="color: white; font-weight: bold; padding: 10px; background-color: {% if message.tags == 'error' %}red{% else %}#28a745{% endif %}; border-radius: 5px;">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Login Form -->
+                        <form method="POST" id="contactForm" name="contactForm" class="contactForm">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <h6 style="color:red">{{ msg }}</h6>
+                                        <label class="label" for="email">Email Address</label>
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="password">Password</label>
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group mt-3">
+                                        <input type="submit" value="Login" class="btn btn-primary">
+
+                                        <!-- Side-by-Side Links Container -->
+                                        <div class="d-flex justify-content-between align-items-center mt-3 pt-2">
+                                            <span class="submitting" style="font-size: 15px;">
+                                                New User? <a href="{% url 'customer_registration' %}" style="color: green; font-weight: 600;">Register Here</a>
+                                            </span>
+
+                                            <a href="{% url 'forgot_password' %}" style="color: #007bff; font-size: 15px; font-weight: 600; text-decoration: underline;">Forgot Password?</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% include 'footer.html' %}

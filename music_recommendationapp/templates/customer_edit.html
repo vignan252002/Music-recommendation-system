@@ -1,0 +1,115 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Update Profile</p>
+            </div>
+        </div>
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<section class="contact-area mt-30 section-padding-100-0">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-lg-6">
+                <div class="contact-content mb-100">
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area">
+                        <form method="POST" id="contactForm" action="{% url 'customer_update' %}" name="contactForm" class="contactForm">
+                            {% csrf_token %}
+                            <div class="row">
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="id">Id</label>
+                                        <input type="number" class="form-control" name="id" id="id" value="{{x.id}}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="fullname">Full Name</label>
+                                        <input type="text" class="form-control" name="fullname" id="fullname" value="{{x.fullname}}" placeholder="Full Name" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="email">Email Address</label>
+                                        <!-- Added pattern and title tracking -->
+                                        <input type="email" class="form-control" name="email" id="email" value="{{x.email}}" placeholder="Email"
+                                               pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                                               title="Please enter a valid email address" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="mobile">Mobile</label>
+                                        <!-- Changed type to tel, fixed pattern execution, and added informative title -->
+                                        <input type="tel" class="form-control" name="mobile" id="mobile" value="{{x.mobile}}" placeholder="Mobile"
+                                               pattern="[6-9][0-9]{9}"
+                                               title="Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="address">Address</label>
+                                        <input type="text" class="form-control" name="address" id="address" value="{{x.address}}" placeholder="Address" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="city">City</label>
+                                        <input type="text" class="form-control" name="city" id="city" value="{{x.city}}" placeholder="City" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label" for="pincode">Pincode</label>
+                                        <!-- Changed type to text, matched generic Indian 6-digit PIN code rules -->
+                                        <input type="text" class="form-control" name="pincode" id="pincode" value="{{x.pincode}}" placeholder="Pincode"
+                                               pattern="[1-9][0-9]{5}"
+                                               title="Please enter a valid 6-digit PIN code" required>
+                                    </div>
+                                </div>
+
+                                <input type="password" class="form-control" name="password" id="password" value="{{x.password}}" hidden="hidden">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="submit" value="Update" class="btn btn-primary">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% include 'footer.html' %}

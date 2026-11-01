@@ -1,0 +1,110 @@
+{% load static %}
+{% include 'admin_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-1.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Admin View Plan</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+
+<!-- Stylish Plans Display -->
+<style>
+    .plan-card {
+        border-radius: 20px;
+        padding: 25px;
+        color: #ffffff !important;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        height: 100%;
+    }
+
+    .plan-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .plan-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff !important;
+    }
+
+    .plan-price {
+        font-size: 36px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #ffffff !important;
+    }
+
+    .plan-info {
+        font-size: 16px;
+        margin-top: 15px;
+        color: #ffffff !important;
+    }
+
+    .plan-info p {
+        margin: 0 0 8px;
+        color: #ffffff !important;
+    }
+
+    .btn-delete {
+        background-color: #ff4d4d;
+        color: white !important;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .btn-delete:hover {
+        background-color: #e60000;
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row">
+        {% if plan %}
+            {% for x in plan %}
+                <div class="col-md-4 mb-4">
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <i class="fas fa-music"></i> {{ x.title }}
+                        </div>
+                        <div class="plan-price">
+                            ₹{{ x.cost }}
+                        </div>
+                        <div class="plan-info">
+                            <p><strong>Duration:</strong> {{ x.months }} month(s)</p>
+                            <p><strong>Discount:</strong> {{ x.discount }}%</p>
+                            <p><strong>Email:</strong> {{ x.email }}</p>
+                            <p><strong>Date:</strong> {{ x.date_time }}</p>
+                        </div>
+                        <div class="text-end mt-3">
+                            <a href="{% url 'plan_delete' id=x.id %}" onclick="return confirm('Really Want To Delete?')" class="btn-delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center">
+                <p class="alert alert-warning">No Plans Found</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'footer.html' %}

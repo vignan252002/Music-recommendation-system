@@ -1,0 +1,92 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Your Profile</p>
+            </div>
+        </div>
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### Profile Area Start ##### -->
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 style="color: #fff;">Profile Details</h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+
+                <!-- Custom Profile Card -->
+                <div class="single-profile-card" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
+
+                    <!-- Header section with Name and Email -->
+                    <div class="text-center mb-4">
+                        <div style="width: 80px; height: 80px; background: #27ae60; color: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 30px; font-weight: bold; margin-bottom: 15px;">
+                            {{ customer.fullname|make_list|first|upper }}
+                        </div>
+                        <h3 style="color: #fff; margin-bottom: 5px;">{{ customer.fullname }}</h3>
+                        <p style="color: #00ff00; font-size: 16px;">{{ customer.email }}</p>
+                    </div>
+
+                    <hr style="border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 20px 0 30px 0;">
+
+                    <!-- Profile Details Grid -->
+                    <div class="row" style="color: #a8a8a8; font-size: 15px; line-height: 2;">
+                        <div class="col-6 mb-3">
+                            <strong style="color: #fff; display: block; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Customer ID</strong>
+                            #{{ customer.id }}
+                        </div>
+                        <div class="col-6 mb-3">
+                            <strong style="color: #fff; display: block; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Mobile</strong>
+                            +91 {{ customer.mobile }}
+                        </div>
+                        <div class="col-12 mb-3">
+                            <strong style="color: #fff; display: block; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Address</strong>
+                            {{ customer.address }}
+                        </div>
+                        <div class="col-6 mb-3">
+                            <strong style="color: #fff; display: block; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">City</strong>
+                            {{ customer.city }}
+                        </div>
+                        <div class="col-6 mb-3">
+                            <strong style="color: #fff; display: block; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Pincode</strong>
+                            {{ customer.pincode }}
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="text-center mt-4">
+                        <a href="{% url 'customer_edit' id=customer.id %}" class="btn musica-btn w-100">Edit Profile</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ##### Profile Area End ##### -->
+
+{% include 'footer.html' %}

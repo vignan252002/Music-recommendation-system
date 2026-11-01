@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Musica - Music Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+
+<body>
+    <!-- ##### Preloader ##### -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="circle-preloader">
+            <img src="{% static 'img/core-img/compact-disc.png' %}" alt="">
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    {% include 'customer_header.html' %}
+    <!-- ##### Header Area End ##### -->
+     <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <p data-animation="fadeInUp" data-delay="300ms">View Free Album</p>
+                </div>
+            </div>
+
+        </div>
+        <!-- bg gradients -->
+        <div class="bg-gradients"></div>
+
+        <!-- Slide Down -->
+        <div class="slide-down" id="scrollDown">
+            <h6>Slide Down</h6>
+            <div class="line"></div>
+        </div>
+    </section>
+<div class="upcoming-shows-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h2>View Your Albums</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Upcoming Shows Content -->
+                    <div class="upcoming-shows-content">
+{% for x in albums %}
+<div class="single-upcoming-shows d-flex align-items-center flex-wrap">
+    <div class="shows-date">
+        <h2>{{ x.tracks }}<span>Tracks</span></h2>
+    </div>
+    <div class="shows-desc d-flex align-items-center">
+        <div class="shows-img">
+            <img src="{{ x.image.url }}" alt="">
+        </div>
+        <div class="shows-name">
+            <h6>{{ x.title }}</h6>
+            <p>{{ x.production }}</p>
+        </div>
+    </div>
+    <div class="shows-location">
+        <p>{{ x.language }}</p>
+    </div>
+    <div class="shows-time">
+        <p>{{ x.year }}</p>
+    </div>
+    <div class="buy-tickets">
+        <a href="{% url 'customer_view_free_song' id=x.id %}" class="btn musica-btn">View Songs</a>
+    </div>
+</div>
+{% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% include 'footer.html' %}
+
+
+

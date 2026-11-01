@@ -1,0 +1,56 @@
+{% load static %}
+{% include 'admin_header.html' %}
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <p data-animation="fadeInUp" data-delay="300ms">Home</p>
+                </div>
+            </div>
+
+        </div>
+        <!-- bg gradients -->
+        <div class="bg-gradients"></div>
+
+        <!-- Slide Down -->
+        <div class="slide-down" id="scrollDown">
+            <h6>Slide Down</h6>
+            <div class="line"></div>
+        </div>
+    </section>
+
+<div class="bg-gradients"></div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### About Us Area Start ##### -->
+    <div class="about-us-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <!-- About Thumbnail -->
+                <div class="col-12 col-lg-6">
+                    <div class="about-thumbnail mb-100">
+                        <img src="{% static 'img/bg-img/bg-7.jpg' %}" alt="">
+                    </div>
+                </div>
+                <!-- About Content -->
+                <div class="col-12 col-lg-6">
+                    <div class="about--content mb-100">
+                        <h4>Hello, <br>It’s E Gaana Musical System</h4>
+                        <p>Affordability of Streaming Services: E Gaana Musical System platform offer a cost-effective alternative to buying individual albums or songs. This affordability appeals to Gen Z, who can access millions of songs and create custom playlists for a monthly fee.</p>
+                        <!-- Key Notes -->
+                        <ul class="key-notes">
+                            <li><div class="check"><img src="{% static 'img/core-img/check.png' %}" alt=""></div> Personalized User Experience.</li>
+                            <li><div class="check"><img src="{% static 'img/core-img/check.png' %}" alt=""></div> Seamless Audio Quality.</li>
+                            <li><div class="check"><img src="{% static 'img/core-img/check.png' %}" alt=""></div> Social and Collaborative Features.</li>
+                            <li><div class="check"><img src="{% static 'img/core-img/check.png' %}" alt=""></div> Podcasts and Audio Content.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% include 'footer.html' %}

@@ -1,0 +1,97 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Customer History</p>
+                <!-- Reduced header size for consistency -->
+                <h4 data-animation="fadeInUp" data-delay="500ms" style="color:white; font-size: 28px;">Subscriptions</h4>
+            </div>
+        </div>
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### Subscription History Area Start ##### -->
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 style="color: #fff;">Your Subscription History</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            {% if subscriptions %}
+                {% for subscription in subscriptions %}
+                    <!-- col-lg-4 ensures exactly 3 cards per row on desktops -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+
+                        <!-- Custom Card Styling (Added Flexbox and 100% height) -->
+                        <div class="single-subscription-card d-flex flex-column" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; position: relative; text-align: center; padding: 40px 20px 25px 20px; height: 100%;">
+
+                            <!-- Status Badge -->
+                            {% if subscription.enddate < today %}
+                                <div style="position: absolute; top: 15px; right: 15px; background: #e74c3c; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 11px; text-transform: uppercase; z-index: 10;">Expired</div>
+                            {% else %}
+                                <div style="position: absolute; top: 15px; right: 15px; background: #27ae60; color: white; padding: 4px 15px; border-radius: 20px; font-weight: bold; font-size: 11px; text-transform: uppercase; z-index: 10;">Active</div>
+                            {% endif %}
+
+                            <!-- Plan Details (Flex-grow keeps the dates pushed to the bottom) -->
+                            <div class="d-flex flex-column flex-grow-1 justify-content-center">
+                                <h3 style="color: #fff; margin-bottom: 5px;">{{ subscription.subscription.title }}</h3>
+                                <h2 style="color: #00ff00; margin-bottom: 20px;">{{ subscription.subscription.cost }}</h2>
+
+                                <p style="color: #a8a8a8; margin-bottom: 10px;"><strong>Duration:</strong> {{ subscription.subscription.months }} Months</p>
+                                <p style="color: #a8a8a8; margin-bottom: 20px;"><strong>Discount:</strong> {{ subscription.subscription.discount }}</p>
+                            </div>
+
+                            <!-- Bottom Anchored Section -->
+                            <div class="mt-auto">
+                                <hr style="border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 0 0 20px 0;">
+
+                                <!-- Dates -->
+                                <div class="d-flex justify-content-between px-2" style="color: #fff; font-size: 14px;">
+                                    <div class="text-left">
+                                        <span style="display: block; color: #7f8c8d; font-size: 12px; text-transform: uppercase;">Start Date</span>
+                                        <strong>{{ subscription.startdate|date:"M d, Y" }}</strong>
+                                    </div>
+                                    <div class="text-right">
+                                        <span style="display: block; color: #7f8c8d; font-size: 12px; text-transform: uppercase;">End Date</span>
+                                        <strong>{{ subscription.enddate|date:"M d, Y" }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center mt-5">
+                    <h4 style="color: white;">No Subscription History Found.</h4>
+                    <p style="color: #7f8c8d;">You haven't purchased any premium plans yet.</p>
+                    <a href="{% url 'customer_view_plans' %}" class="btn musica-btn mt-3">View Plans</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+<!-- ##### Subscription History Area End ##### -->
+
+{% include 'footer.html' %}

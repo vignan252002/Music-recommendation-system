@@ -1,0 +1,134 @@
+{% load static %}
+{% include 'admin_header.html' %}
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <p data-animation="fadeInUp" data-delay="300ms">Edit Song Details</p>
+                </div>
+            </div>
+
+        </div>
+        <!-- bg gradients -->
+        <div class="bg-gradients"></div>
+
+        <!-- Slide Down -->
+        <div class="slide-down" id="scrollDown">
+            <h6>Slide Down</h6>
+            <div class="line"></div>
+        </div>
+    </section>
+<section class="contact-area mt-30 section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="contact-content mb-100">
+                        <!-- Contact Form Area -->
+                        <div class="contact-form-area">
+							{{msg}}
+                            <form method="POST" id="contactForm" action="{% url 'free_update_song' %}" name="contactForm" class="contactForm" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label class="label" >Id</label>
+											<input type="number" class="form-control" name="id" value="{{x.id}}" readonly>
+										</div>
+									</div>
+									<div class="col-md-8">
+										<div class="form-group">
+											<label class="label" >Album Id</label>
+											<input type="number" class="form-control" name="album" value="{{x.album_id}}" readonly>
+										</div>
+									</div>
+
+									<div class="col-md-8">
+										<div class="form-group">
+											<label class="label" for="title">Title</label>
+											<input type="text" class="form-control" name="title" value="{{x.title}}" id="title" placeholder="Title" required>
+										</div>
+									</div>
+
+									<div class="col-md-8">
+										<div class="form-group">
+											<label class="label" for="singer">Singer</label>
+											<input type="text" class="form-control" name="singer" value="{{x.singer}}" id="singer" placeholder="Singer">
+										</div>
+									</div>
+<!--									-->
+<!--									<div class="col-md-8">-->
+<!--										<div class="form-group">-->
+<!--									<label>Category</label>-->
+<!--									<select name="category" value="{{x.category}}"  required>-->
+<!--										{% for i in category %}-->
+<!--										<option name="category"  value="{{i.category}}">{{i.category}}</option>-->
+<!--										{% endfor %}-->
+<!--									</select><br>-->
+<!--								</div>-->
+
+
+                           <div class="col-sm-8">
+                          <div class="form-group">
+                    <label>Enter Category:</label>
+                       <select name="category" class="form-control "  style="height:48px;" required>
+				{% for cat in category %}
+                            <option value="{{ cat.category }}"
+                {% if cat.category == x.category %}selected{% endif %}>
+                {{ cat.category }}
+            </option>
+				{% endfor %}
+					   </select>
+                          </div>
+                    </div>
+
+
+									<div class="col-md-8">
+										<div class="form-group">
+											<label class="label" for="director">Director</label>
+											<input type="text" class="form-control" value="{{x.director}}" name="director" id="director" placeholder="Director">
+										</div>
+									</div>
+									<div class="col-md-8">
+										<div class="form-group">
+											<label class="label" >Upload Song</label>
+											<input type="file" class="form-control" value="{{x.file.url}}" name="file" >
+										</div>
+									</div>
+<!--									<div class="col-md-8">-->
+<!--										<div class="form-group">-->
+<!--											<label class="label" for="durationInput">Duration</label>-->
+<!--											<input type="text" class="form-control" value="{{x.duration}}" name="duration" id="durationInput" required>-->
+<!--										</div>-->
+<!--									</div>-->
+									<div class="col-md-12">
+										<div class="form-group">
+											<input type="submit" value="Update" class="btn btn-primary">
+										</div>
+									</div>
+								</div>
+							</form>
+
+								</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% include 'footer.html' %}
+
+<script>
+  document.getElementById('durationInput').addEventListener('change', function() {
+    const enteredValue = this.value;
+    const durationRegex = /^([0-9]{2}):([0-5][0-9]):([0-5][0-9])$/; // HH:MM:SS format
+    if (!durationRegex.test(enteredValue)) {
+      alert('Please enter a valid duration in HH:MM:SS format.');
+      this.value = ''; // Clear the input if the format is incorrect
+    }
+  });
+</script>

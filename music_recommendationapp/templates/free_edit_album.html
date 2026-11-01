@@ -1,0 +1,102 @@
+{% load static %}
+{% include 'admin_header.html' %}
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <p data-animation="fadeInUp" data-delay="300ms"> Free Edit Album</p>
+                </div>
+            </div>
+
+        </div>
+        <!-- bg gradients -->
+        <div class="bg-gradients"></div>
+
+        <!-- Slide Down -->
+        <div class="slide-down" id="scrollDown">
+            <h6>Slide Down</h6>
+            <div class="line"></div>
+        </div>
+    </section>
+<section class="contact-area mt-30 section-padding-100-0">
+        <div class="container">
+
+            <div class="row">
+
+
+                <div class="col-12 col-lg-6">
+                    <div class="contact-content mb-100">
+                        <!-- Contact Form Area -->
+                        <div class="contact-form-area">
+							{{msg}}
+                            <form method="POST" id="contactForm" action="{% url 'free_update_album' %}" name="contactForm" class="contactForm" enctype="multipart/form-data">
+                                        {% csrf_token %}
+										<div class="row">
+                                            <div class="col-md-8">
+												<div class="form-group">
+													<label class="label" >Id</label>
+													<input type=number class="form-control" name="id" value="{{x.id}}" readonly>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<label class="label" >Email Address</label>
+													<input type=email class="form-control" name="email" value="{{x.email}}" readonly>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<label class="label" for="title">Title</label>
+													<input type=text class="form-control" name="title" id="title" value="{{x.title}}" placeholder="Title" required>
+												</div>
+											</div>
+
+                                            <div class="col-md-8">
+												<div class="form-group">
+													<label class="label" for="production">Production</label>
+													<input type=text class="form-control" value="{{x.production}}" name="production" id="production" placeholder="production">
+												</div>
+											</div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<label class="label" for="language">Language</label>
+													<input type="text" class="form-control" value="{{x.language}}" name="language" id="language" placeholder="Language">
+												</div>
+											</div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<label class="label" for="year">Year</label>
+													<input type=number class="form-control" value="{{x.year}}" name="year" id="year" placeholder="Year">
+												</div>
+											</div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<label class="label" for="track">No.of Tracks</label>
+													<input type=number class="form-control" value="{{x.tracks}}" name="tracks" id="track" placeholder="No.of Tracks">
+												</div>
+											</div>
+                                            <div class="col-md-8">
+												<div class="form-group">
+													<label class="label" >Upload Image</label>
+													<input type=file class="form-control" value="{{x.image.url}}" name="image" >
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type=submit value="Update" class="btn btn-primary">
+												</div>
+											</div>
+										</div>
+									</form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% include 'footer.html' %}

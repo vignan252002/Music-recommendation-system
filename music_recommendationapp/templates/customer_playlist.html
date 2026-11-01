@@ -1,0 +1,77 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Listening to</p>
+                <h2 data-animation="fadeInUp" data-delay="500ms" style="color:white;">{{ folder.name }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- Playlist Area Start -->
+<div class="upcoming-songs-area section-padding-100">
+    <div class="container">
+
+        <!-- Back Button -->
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <a href="{% url 'my_playlists' %}" class="btn musica-btn mb-4" style="background-color: transparent; border: 1px solid white;">< Back to Playlists</a>
+                <h3 style="color: white;">Songs in {{ folder.name }}</h3>
+            </div>
+        </div>
+
+        <!-- Grid Row -->
+        <div class="row">
+            {% if playlist_items %}
+                {% for item in playlist_items %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+
+                        <div class="single-song-card" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; margin-bottom: 30px; text-align: center; transition: 0.3s;">
+
+                            <div class="song-img" style="width: 100%; height: 250px; overflow: hidden;">
+                                <img src="{{item.song.album.image.url}}" alt="{{item.song.title}}" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+
+                            <div class="song-info" style="padding: 25px 20px;">
+                                <h4 style="color: #fff; margin-bottom: 5px;">{{item.song.title}}</h4>
+                                <p style="color: #a8a8a8; margin-bottom: 10px;">{{item.song.singer}} / {{item.song.director}}</p>
+
+                                <div class="song-meta d-flex justify-content-center align-items-center mb-4" style="gap: 15px; color: #00ff00; font-size: 14px;">
+                                    <span><strong>Category:</strong> {{item.song.category}}</span>
+                                </div>
+
+                                <div class="d-flex flex-column" style="gap: 10px;">
+                                    <a href="{% url 'customer_playlist_play' id=item.song.id %}" class="btn musica-btn w-100">Play Song</a>
+                                    <!-- Remove using item.id (The playlist record) -->
+                                    <a href="{% url 'remove' id=item.id %}" class="btn musica-btn w-100" style="background-color: #e74c3c; border-color: #e74c3c;">Remove from Folder</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center mt-5">
+                    <h4 style="color: white;">This playlist is empty</h4>
+                    <p style="color: #7f8c8d;">Go explore some albums and save your favorite tracks here!</p>
+                    <a href="{% url 'customer_view_album' %}" class="btn musica-btn mt-3">Find Music</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% include 'footer.html' %}

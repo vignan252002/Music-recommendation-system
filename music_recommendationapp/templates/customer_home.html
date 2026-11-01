@@ -1,0 +1,58 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Welcome Back, {{msg}}!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+
+<!-- ##### About Us Area Start ##### -->
+<div class="about-us-area section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <!-- About Thumbnail -->
+            <div class="col-12 col-lg-6">
+                <div class="about-thumbnail mb-100">
+                    <img src="{% static 'img/bg-img/bg-7.jpg' %}" alt="">
+                </div>
+            </div>
+            <!-- About Content -->
+            <div class="col-12 col-lg-6">
+                <div class="about--content mb-100">
+                    <h4>Hello {{msg}},<br>Welcome to Your Music Recommendation System</h4>
+                    <p>This intelligent platform uses Machine Learning to understand your music preferences and create highly personalized playlists. Whether you're relaxing, working, or working out, our system ensures the right music finds you at the right moment.</p>
+                    <p>Built with love for true music lovers, we aim to give you more than just songs—we offer an experience curated for your unique taste. Enjoy seamless audio, insightful recommendations, and a vibrant community of music fans like you.</p>
+                    <!-- Key Notes -->
+                    <ul class="key-notes">
+                        <li><div class="check"><img src="{% static 'img/core-img/check.png' %}" alt=""></div> AI-Powered Song Recommendations</li>
+                        <li><div class="check"><img src="{% static 'img/core-img/check.png' %}" alt=""></div> Smooth & High-Quality Streaming</li>
+                        <li><div class="check"><img src="{% static 'img/core-img/check.png' %}" alt=""></div> Personalized Playlists Just for You</li>
+                        <li><div class="check"><img src="{% static 'img/core-img/check.png' %}" alt=""></div> Discover New Artists and Genres</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

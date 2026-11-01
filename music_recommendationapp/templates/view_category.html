@@ -1,0 +1,136 @@
+{% load static %}
+{% include 'admin_header.html' %}
+
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-1.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">View Categories</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+
+<!-- Styles -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    .category-container {
+        padding: 50px 30px;
+        background: white;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .card {
+        background: linear-gradient(145deg, #e6f0ff, #ffffff);
+        color: #333;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+    }
+
+    .card-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #1a1a1a;
+    }
+
+    .card-footer {
+        border-top: none;
+        background-color: transparent;
+    }
+
+    .delete-btn {
+        color: #ff4d4d;
+        font-size: 24px;
+        transition: color 0.3s ease;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    .delete-btn:hover {
+        color: #ff1a1a;
+    }
+
+    .delete-icon {
+        display: inline-block;
+        font-size: 24px;
+        transition: transform 0.3s ease;
+        will-change: transform;
+    }
+
+    .delete-icon.animate {
+        animation: binOpen 0.4s ease-in-out forwards;
+    }
+
+    @keyframes binOpen {
+        0% { transform: rotate(0deg); }
+        30% { transform: rotate(-20deg); }
+        60% { transform: rotate(15deg); }
+        100% { transform: rotate(0deg); }
+    }
+</style>
+
+<!-- JS to trigger animation and redirect -->
+<script>
+    function animateTrash(event, url) {
+        event.preventDefault();
+
+        const confirmed = confirm("Really do you want to delete?");
+        if (!confirmed) return;
+
+        const icon = event.currentTarget.querySelector('.delete-icon');
+
+        icon.classList.remove('animate');
+        void icon.offsetWidth; // force reflow to restart animation
+        icon.classList.add('animate');
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 400);
+    }
+</script>
+
+<!-- Categories List -->
+<div class="container-fluid category-container">
+    <div class="row justify-content-center">
+        {% if cat %}
+            {% for x in cat %}
+            <div class="col-md-4 col-lg-3 mb-4">
+                <div class="card text-center p-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ x.category }}</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'delete_category' id=x.id %}"
+                           onclick="animateTrash(event, this.href)"
+                           class="delete-btn" title="Delete Category">
+                            <i class="fas fa-trash-alt delete-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center text-dark">
+                <h4>No Categories Found</h4>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'footer.html' %}

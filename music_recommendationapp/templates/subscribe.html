@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Musica - Music Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+
+<body>
+    <!-- ##### Preloader ##### -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="circle-preloader">
+            <img src="{% static 'img/core-img/compact-disc.png' %}" alt="">
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- Navbar Area -->
+        <div class="musica-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container-fluid">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="musicaNav">
+
+                        <!-- Nav brand -->
+                        <a href="#" style="color:white; font-size:30px; ">E Gaana Digital Musical System</a>
+<!--                        <a href="index.html" class="nav-brand"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>-->
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{% url 'customer_login' %}">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <p data-animation="fadeInUp" data-delay="300ms">Subscribe</p>
+                </div>
+                <!-- Big Text -->
+                <h2 class="big-text">Colorlib</h2>
+            </div>
+
+            <!-- Single Hero Slide -->
+
+
+        </div>
+        <!-- bg gradients -->
+        <div class="bg-gradients"></div>
+
+        <!-- Slide Down -->
+        <div class="slide-down" id="scrollDown">
+            <h6>Slide Down</h6>
+            <div class="line"></div>
+        </div>
+    </section>
+
+  <section class="contact-area mt-30 section-padding-100-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="contact-content mb-100">
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area">
+                        <form method="POST" action="{% url 'subscribe' %}" id="contactForm" name="contactForm" class="contactForm">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label"><b>Email Address</b></label>
+                                        <input type="email" class="form-control" name="email" value="{{email}}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label><b>Package:</b></label>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" id="monthly" value="199" name="package" onchange="calculateEndDate()">Monthly
+                                            </label><br>
+                                            <label>
+                                                <input type="radio" id="option2" value="399" name="package" onchange="calculateEndDate()">Quarterly
+                                            </label><br>
+                                            <label>
+                                                <input type="radio" id="option3" value="1099" name="package" onchange="calculateEndDate()">Yearly
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label"><b>Price</b></label>
+                                        <input type="text" id="selectedOption" name="price"  class="form-control" readonly>
+
+<!--                                        <h2><b><textarea id="selectedOption" rows="1" cols="2" name="price"  class="form-control" readonly></textarea></b></h2>-->
+                                    </div>
+                                </div>
+
+                                <!-- Start Date -->
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label"><b>Start Date</b></label>
+                                        <input type="text" id="startDate" class="form-control" name="start_date" readonly>
+                                    </div>
+                                </div>
+
+                                <!-- End Date -->
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="label"><b>End Date</b></label>
+                                        <input type="text" id="endDate" class="form-control" name="end_date" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="submit" value="Subscribe" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function calculateEndDate() {
+        const startDate = new Date();
+        document.getElementById("startDate").value = startDate.toISOString().split('T')[0];
+
+        let package = document.querySelector('input[name="package"]:checked').value;
+        let endDate = new Date(startDate);
+
+        if (package == "199") {
+            endDate.setMonth(endDate.getMonth() + 1);  // Monthly
+        } else if (package == "399") {
+            endDate.setMonth(endDate.getMonth() + 3);  // Quarterly
+        } else if (package == "1099") {
+            endDate.setFullYear(endDate.getFullYear() + 1);  // Yearly
+        }
+
+        document.getElementById("endDate").value = endDate.toISOString().split('T')[0];
+    }
+</script>
+
+    <script>
+        // Get all radio buttons by their name
+        const radios = document.querySelectorAll('input[type="radio"][name="package"]');
+
+        // Function to get value on click
+        radios.forEach(function(radio) {
+            radio.addEventListener('click', function() {
+                // Check if the radio button is checked
+                if (this.checked) {
+
+                    // Display the selected value
+                    document.getElementById('selectedOption').value = this.value;
+                }
+            });
+        });
+    </script>
+{% include 'footer.html' %}
+

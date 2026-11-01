@@ -1,0 +1,91 @@
+{% load static %}
+{% include 'header.html' %}
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-1.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <h2 data-animation="fadeInUp" data-delay="100ms">Contact Us</h2>
+                </div>
+                <!-- Big Text -->
+                <h2 class="big-text">Musica</h2>
+            </div>
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-2.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <h2 data-animation="fadeInUp" data-delay="100ms">Contact Us</h2>
+                </div>
+                <!-- Big Text -->
+                <h2 class="big-text">Colorlib</h2>
+            </div>
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="hero-slides-content text-center">
+                    <h2 data-animation="fadeInUp" data-delay="100ms">Contact Us</h2>
+                </div>
+                <!-- Big Text -->
+                <h2 class="big-text">Festival</h2>
+            </div>
+
+        </div>
+        <!-- bg gradients -->
+        <div class="bg-gradients"></div>
+
+        <!-- Slide Down -->
+        <div class="slide-down" id="scrollDown">
+            <h6>Slide Down</h6>
+            <div class="line"></div>
+        </div>
+    </section>
+   <section class="contact-area mt-30 section-padding-100-0">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-12 col-lg-6">
+                    <div class="contact-content mb-100">
+                        <!-- Contact Form Area -->
+                        <div class="contact-form-area">
+                            <h4 class="text-center">If You Have Any Quries <br>Please Do Not Hesitate To Contact Us</h4>
+            <h6 style="color:green">{{msg}}</h6>
+						<form action="" method="POST" class="bg-light p-5 contact-form">
+
+                        {% csrf_token %}
+              <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="Enter Your Email" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group">
+                <textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message" required></textarea>
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+              </div>
+            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% include 'footer.html' %}
+

@@ -1,0 +1,120 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-1.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">My Subscription</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+
+<br>
+<center><h3>MY SUBSCRIPTION</h3></center>
+<br>
+
+<div class="m-3">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-primary">
+                <th>Id</th>
+                <th>Email</th>
+                <th>Package</th>
+                <th>Price</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Display the latest active subscription -->
+            {% if active_sub %}
+            <tr>
+                <td>{{ active_sub.id }}</td>
+                <td>{{ active_sub.email }}</td>
+                <td>
+                    {% if active_sub.package == '399' %}
+                    <span>Monthly</span>
+                    {% elif active_sub.package == '1099' %}
+                    <span>Yearly</span>
+                    {% else %}
+                    <span>Quarterly</span>
+                    {% endif %}
+                </td>
+                <td>{{ active_sub.price }}</td>
+                <td>{{ active_sub.start_date }}</td>
+                <td>{{ active_sub.end_date }}</td>
+                <td>
+                    <button class="btn btn-success">Active</button> <!-- Active subscription -->
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7">No active subscription found</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<br>
+<center><h3>SUBSCRIPTION HISTORY</h3></center>
+<br>
+
+<div class="m-3">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-secondary">
+                <th>Id</th>
+                <th>Email</th>
+                <th>Package</th>
+                <th>Price</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Display expired subscriptions as history -->
+            {% for sub in expired_subs %}
+            <tr>
+                <td>{{ sub.id }}</td>
+                <td>{{ sub.email }}</td>
+                <td>
+                    {% if sub.package == '399' %}
+                    <span>Monthly</span>
+                    {% elif sub.package == '1099' %}
+                    <span>Yearly</span>
+                    {% else %}
+                    <span>Quarterly</span>
+                    {% endif %}
+                </td>
+                <td>{{ sub.price }}</td>
+                <td>{{ sub.start_date }}</td>
+                <td>{{ sub.end_date }}</td>
+                <td>
+                    <button class="btn btn-danger">Expired</button> <!-- Expired subscription -->
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No subscription history found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'footer.html' %}
+
+

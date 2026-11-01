@@ -1,0 +1,165 @@
+{% load static %}
+{% include 'customer_header.html' %}
+
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-3.jpg' %});"></div>
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">AI Powered</p>
+                <h2 data-animation="fadeInUp" data-delay="500ms" style="color:white;">Mood Matcher</h2>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gradients"></div>
+</section>
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container text-center">
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-12 col-md-8">
+                <h3 style="color: white; margin-bottom: 20px;">Let AI read your mood.</h3>
+                <p style="color: #a8a8a8;">Look directly into the camera and we will recommend songs based on how you feel right now.</p>
+
+                <div style="margin: 30px auto; width: 100%; max-width: 500px; border: 4px solid rgba(255, 255, 255, 0.1); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000;">
+                    <video id="webcam" width="100%" autoplay playsinline style="display: block; transform: scaleX(-1);"></video>
+                </div>
+
+                <canvas id="canvas" style="display:none;"></canvas>
+
+                <button id="capture-btn" class="btn musica-btn mt-2" style="background-color: #27ae60; padding: 0 40px; height: 60px; font-size: 18px;">Scan My Mood</button>
+            </div>
+        </div>
+
+        <hr style="border-top: 1px solid #555; margin: 50px 0;">
+
+        <div id="results-area" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h3 id="emotion-display" style="color: #00ff00; text-transform: uppercase; letter-spacing: 2px;"></h3>
+                    <p style="color: white;">Here are some tracks to match your vibe:</p>
+                </div>
+            </div>
+
+            <div id="song-list" class="row justify-content-center"></div>
+        </div>
+
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const video = document.getElementById('webcam');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('capture-btn');
+        const resultsArea = document.getElementById('results-area');
+        const emotionDisplay = document.getElementById('emotion-display');
+        const songList = document.getElementById('song-list');
+
+        // 1. Request Camera Access when the page loads
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function(err) {
+                    alert("Camera access is required for this feature. Please allow camera permissions in your browser.");
+                    console.error("Camera Error:", err);
+                });
+        } else {
+            alert("Your browser does not support webcam access.");
+        }
+
+       // 2. Handle the Button Click
+        captureBtn.addEventListener('click', function() {
+
+            // --- NEW SAFETY CHECK ---
+            if (video.videoWidth === 0 || video.videoHeight === 0) {
+                alert("Please wait for the camera feed to appear before scanning!");
+                return; // Stop the function here
+            }
+            // ------------------------
+
+            // Change button text so the user knows it's working
+            captureBtn.innerText = "Analyzing Face...";
+            captureBtn.style.backgroundColor = "#f39c12";
+            captureBtn.disabled = true;
+
+            // ... (the rest of the code stays exactly the same)
+
+            // Set canvas size to match video frame
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Draw the current video frame onto the hidden canvas
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert the canvas picture into a Base64 string
+            const imageData = canvas.toDataURL('image/jpeg');
+
+            // 3. Send the picture to your Django Backend API
+            fetch('/emotion_recommendation/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Assuming you have CSRF disabled for this endpoint via @csrf_exempt
+                    // If you didn't use @csrf_exempt, you must pass the X-CSRFToken header here
+                },
+                body: JSON.stringify({ image: imageData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Reset button
+                captureBtn.innerText = "Scan Again";
+                captureBtn.style.backgroundColor = "#27ae60";
+                captureBtn.disabled = false;
+
+                if(data.status === 'success') {
+                    // Show results area
+                    resultsArea.style.display = 'block';
+
+                    // Update header text
+                    emotionDisplay.innerText = `Emotion Detected: ${data.emotion}`;
+
+                    // Clear out old songs
+                    songList.innerHTML = '';
+
+                    // Loop through the songs returned by Django and build the HTML cards
+                    if(data.songs.length > 0) {
+                        data.songs.forEach(song => {
+                            let songCard = `
+                                <div class="col-12 col-md-4 mb-4">
+                                    <div class="single-song-card" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; text-align: center; transition: 0.3s;">
+                                        <div class="song-img" style="width: 100%; height: 250px; overflow: hidden;">
+                                            <img src="${song.image}" alt="${song.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                        <div class="song-info" style="padding: 25px 20px;">
+                                            <h4 style="color: #fff; margin-bottom: 5px;">${song.title}</h4>
+                                            <p style="color: #a8a8a8; margin-bottom: 20px;">${song.singer}</p>
+                                            <a href="/customer_view_song_play/${song.id}/" class="btn musica-btn w-100">Play Song</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            songList.innerHTML += songCard;
+                        });
+                    } else {
+                        songList.innerHTML = `<p style="color: white;">We couldn't find any ${data.category} songs in our database yet!</p>`;
+                    }
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(err => {
+                // Reset button on failure
+                captureBtn.innerText = "Scan My Mood";
+                captureBtn.style.backgroundColor = "#27ae60";
+                captureBtn.disabled = false;
+                console.error("Fetch error:", err);
+                alert("Something went wrong connecting to the server.");
+            });
+        });
+    });
+</script>

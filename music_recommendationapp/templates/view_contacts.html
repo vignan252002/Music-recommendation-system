@@ -1,0 +1,89 @@
+{% load static %}
+{% include 'admin_header.html' %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide d-flex align-items-center justify-content-center">
+            <!-- Slide Img -->
+            <div class="slide-img bg-img" style="background-image: url({% static 'img/bg-img/bg-1.jpg' %});"></div>
+            <!-- Slide Content -->
+            <div class="hero-slides-content text-center">
+                <p data-animation="fadeInUp" data-delay="300ms">Admin Dashboard</p>
+                <!-- Changed to h4 and explicitly reduced font-size -->
+                <h4 data-animation="fadeInUp" data-delay="500ms" style="color:white; font-size: 28px;">User Messages</h4>
+            </div>
+        </div>
+    </div>
+    <!-- bg gradients -->
+    <div class="bg-gradients"></div>
+
+    <!-- Slide Down -->
+    <div class="slide-down" id="scrollDown">
+        <h6>Slide Down</h6>
+        <div class="line"></div>
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### Contacts Area Start ##### -->
+<div class="upcoming-shows-area section-padding-100">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 style="color: #fff;">Inbox & Feedback</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            {% if con %}
+                {% for x in con %}
+                    <!-- col-lg-4 ensures 3 cards per row on desktops -->
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+
+                        <!-- Custom Card Styling -->
+                        <div class="single-contact-card" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 25px 20px; transition: 0.3s; position: relative;">
+
+                            <!-- User Details -->
+                            <h4 style="color: #fff; margin-bottom: 5px; font-size: 20px;">{{ x.name }}</h4>
+
+                            <!-- Clickable Email Link -->
+                            <a href="mailto:{{ x.email }}" style="color: #27ae60; font-size: 14px; font-weight: bold; margin-bottom: 15px; display: inline-block;">
+                                ✉ {{ x.email }}
+                            </a>
+
+                            <hr style="border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 15px 0;">
+
+                            <!-- Subject -->
+                            <h6 style="color: #f39c12; margin-bottom: 15px; font-size: 15px;">
+                                <strong>Subject:</strong> {{ x.subject }}
+                            </h6>
+
+                            <!-- Scrollable Message Box (Font size reduced to 12px) -->
+                            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; color: #a8a8a8; font-size: 12px; text-align: left; max-height: 150px; overflow-y: auto;">
+                                {{ x.message }}
+                            </div>
+
+                            <!-- ID Tag -->
+                            <div style="position: absolute; top: 15px; right: 15px; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: bold;">
+                                #{{ x.id }}
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center mt-5">
+                    <h4 style="color: white;">No Messages Found.</h4>
+                    <p style="color: #7f8c8d;">Your inbox is completely empty right now.</p>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+<!-- ##### Contacts Area End ##### -->
+
+{% include 'footer.html' %}
